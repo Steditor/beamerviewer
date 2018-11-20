@@ -1,0 +1,22 @@
+<app-toolbar></app-toolbar>
+
+<div class="mainContent" appFileDrop #fileDrop="fileDrop">
+  <app-file-selector [state]="fileDrop.state"
+                     [hidden]="presentationService.presentation && (fileDrop.state == fileDrop.states.DEFAULT)">
+  </app-file-selector>
+
+  <ng-template [ngIf]="presentationService.presentation">
+    <div>
+      <app-main-slide [document]="presentationService.presentation.document"
+                      [slide]="pageNumberService.page">
+      </app-main-slide>
+      <app-presentation-timer *ngIf="displayModeService.mode == displayModeService.modes.SPEAKER">
+      </app-presentation-timer>
+    </div>
+
+    <app-preview-slides *ngIf="displayModeService.mode == displayModeService.modes.SPEAKER"
+                        [presentation]="presentationService.presentation"
+                        [currentSlide]="pageNumberService.page">
+    </app-preview-slides>
+  </ng-template>
+</div>

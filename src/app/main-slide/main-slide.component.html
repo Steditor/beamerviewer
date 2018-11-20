@@ -1,0 +1,31 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Current Slide</mat-card-title>
+  </mat-card-header>
+  <mat-card-content *ngIf="document">
+    <app-pdfview
+      #mainViewer
+      [slide]="slide"
+      [document]="document"
+      [width]="600"
+      appPageControl
+    ></app-pdfview>
+  </mat-card-content>
+  <mat-card-content *ngIf="!document">
+    <fa-icon icon="spinner" [spin]="true"></fa-icon>
+    Loading...
+  </mat-card-content>
+  <mat-card-actions *ngIf="document">
+    <button mat-button class="fullscreen-button" (click)="gotoFullscreen()">
+      Start Presentation
+      <fa-icon icon="desktop"></fa-icon>
+    </button>
+    <button mat-button (click)="pageNumberService.previousPage()">
+      <fa-icon icon="chevron-left"></fa-icon>
+    </button>
+    <span class="pageNumber">{{slide}}</span>/<span class="totalPages">{{document.numPages}}</span>
+    <button mat-button (click)="pageNumberService.nextPage()">
+      <fa-icon icon="chevron-right"></fa-icon>
+    </button>
+  </mat-card-actions>
+</mat-card>

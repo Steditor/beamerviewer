@@ -1,0 +1,12 @@
+<mat-toolbar>
+  <span>BeamerViewer</span>
+  <span class="spacer"></span>
+  <ng-template [ngIf]="presentationService.presentation">
+    <span>{{presentationService.presentation.name}}</span>
+    <button mat-button color="warn"
+            (click)="presentationService.deletePresentation()">
+      Close
+      <fa-icon icon="window-close"></fa-icon>
+    </button>
+  </ng-template>
+</mat-toolbar>

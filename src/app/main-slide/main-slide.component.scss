@@ -1,0 +1,21 @@
+mat-card-actions {
+  position: relative;
+  text-align: center;
+  .mat-button {
+    margin: 0;
+  }
+  .pageNumber {
+    display: inline-block;
+    min-width: 2em;
+    text-align: right;
+  }
+  .totalPages {
+    display: inline-block;
+    min-width: 2em;
+    text-align: left;
+  }
+  .fullscreen-button {
+    position: absolute;
+    left: 0;
+  }
+}

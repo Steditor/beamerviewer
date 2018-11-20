@@ -1,0 +1,15 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Next slides</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <ng-template ngFor let-item [ngForOf]="[currentSlide + 1, currentSlide + 2, currentSlide + 3]">
+      <mat-divider></mat-divider>
+      <app-pdfview
+        [slide]="item"
+        [document]="presentation.document"
+        [width]="300"
+      ></app-pdfview>
+    </ng-template>
+  </mat-card-content>
+</mat-card>

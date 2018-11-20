@@ -1,0 +1,26 @@
+<mat-card>
+  <mat-card-content>
+    <div [ngSwitch]="state" style="pointer-events: none">
+      <p *ngSwitchCase="states.DEFAULT">
+        Drop your presentation here!
+      </p>
+      <p *ngSwitchCase="states.NOT_A_FILE">
+        Only files are allowed!
+      </p>
+      <p *ngSwitchCase="states.MULTIPLE_FILES">
+        I cannot process more than one file!
+      </p>
+      <p *ngSwitchCase="states.DROP_NOW">
+        <fa-icon icon="spinner" [spin]="true"></fa-icon>
+        Drop your file now...
+      </p>
+      <p *ngSwitchCase="states.NOT_A_PDF">
+        I can only deal with .pdf files.
+      </p>
+      <p *ngSwitchCase="states.LOADING">
+        <fa-icon icon="spinner" [spin]="true"></fa-icon>
+        Loading...
+      </p>
+    </div>
+  </mat-card-content>
+</mat-card>

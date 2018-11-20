@@ -1,0 +1,14 @@
+<div class="pdfview" #wrapper
+     [ngStyle]="{'width.px': wrapperSize.width, 'height.px': wrapperSize.height}">
+
+  <app-pdfpage
+    [ngClass]="{'background': activePage !== pdfPage1}"
+    [page]="pdfPage1.page"
+    [width]="displaySize.width" [height]="displaySize.height"></app-pdfpage>
+  <app-pdfpage
+    [ngClass]="{'background': activePage !== pdfPage2}"
+    [page]="pdfPage2.page"
+    [width]="displaySize.width" [height]="displaySize.height"></app-pdfpage>
+  <div class="white" [ngClass]="{'active': activePage === SP.WHITE}"></div>
+  <div class="black" [ngClass]="{'active': activePage === SP.BLACK}"></div>
+</div>
