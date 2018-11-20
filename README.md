@@ -1,2 +1,2 @@
 # beamerviewer
-Show LaTeX-Beamer presentations including notes on multiple screens with your browser.
+Show PDF presentations on multiple screens with your browser.
