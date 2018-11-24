@@ -6,7 +6,13 @@
     :
     <span>{{seconds}}</span>
   </span>
-  <button mat-icon-button (click)="reset()">
-    <fa-icon icon="undo"></fa-icon>
-  </button>
+  <span class="buttonbar">
+    <button mat-icon-button (click)="pause()">
+      <fa-icon icon="pause" *ngIf="!pauseTime"></fa-icon>
+      <fa-icon icon="play" *ngIf="pauseTime"></fa-icon>
+    </button>
+    <button mat-icon-button (click)="reset()">
+      <fa-icon icon="undo"></fa-icon>
+    </button>
+  </span>
 </p>

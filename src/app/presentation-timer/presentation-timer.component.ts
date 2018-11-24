@@ -8,6 +8,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 export class PresentationTimerComponent implements OnInit, OnDestroy {
 
   private startTime: number = 0;
+  pauseTime: number = null;
   hours: string = '00';
   minutes: string = '00';
   seconds: string = '00';
@@ -23,11 +24,31 @@ export class PresentationTimerComponent implements OnInit, OnDestroy {
 
   reset() {
     this.startTime = Date.now();
+    if (this.pauseTime) {
+      this.pauseTime = Date.now();
+    }
     this.update();
     if (this.timeout) {
       window.clearInterval(this.timeout);
     }
-    this.timeout = window.setInterval(() => this.update(), 1000);
+    if (!this.pauseTime) {
+      this.timeout = window.setInterval(() => this.update(), 1000);
+    }
+  }
+
+  pause() {
+    if (this.timeout) {
+      window.clearInterval(this.timeout);
+      this.timeout = null;
+    }
+    if (this.pauseTime) {
+      const pausedFor = Date.now() - this.pauseTime;
+      this.pauseTime = null;
+      this.startTime += pausedFor;
+      this.timeout = window.setInterval(() => this.update(), 1000);
+    } else {
+      this.pauseTime = Date.now();
+    }
   }
 
   private update() {

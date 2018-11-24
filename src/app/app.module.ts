@@ -6,7 +6,16 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faChevronLeft, faChevronRight, faDesktop, faSpinner, faUndo, faWindowClose } from '@fortawesome/free-solid-svg-icons';
+import {
+  faChevronLeft,
+  faChevronRight,
+  faDesktop,
+  faPause,
+  faPlay,
+  faSpinner,
+  faUndo,
+  faWindowClose
+} from '@fortawesome/free-solid-svg-icons';
 
 import { AppComponent } from './app.component';
 import { DisplayModeService } from './display-mode.service';
@@ -23,7 +32,7 @@ import { PreviewSlidesComponent } from './preview-slides/preview-slides.componen
 import { ToolbarComponent } from './toolbar/toolbar.component';
 
 // Add an icon to the library for convenient access in other components
-library.add(faChevronLeft, faChevronRight, faDesktop, faSpinner, faUndo, faWindowClose);
+library.add(faChevronLeft, faChevronRight, faDesktop, faPause, faPlay, faSpinner, faUndo, faWindowClose);
 
 @NgModule({
   declarations: [
