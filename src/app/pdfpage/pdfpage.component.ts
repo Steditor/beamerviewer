@@ -69,10 +69,14 @@ export class PdfpageComponent implements AfterViewInit, OnChanges {
     const scaleX = this.width / viewport.width;
     const scaleY = this.height / viewport.height;
     const scaledViewport = this.page.getViewport(Math.min(scaleX, scaleY));
+    const offsetX = (this.width - scaledViewport.width) / 2;
+    const offsetY = (this.height - scaledViewport.height) / 2;
+    this.context.fillStyle = "white";
+    this.context.fillRect(offsetX, offsetY, scaledViewport.width, scaledViewport.height);
     this.renderTask = this.page.render({
       canvasContext: this.context,
       viewport: scaledViewport,
-      transform: [1, 0, 0, 1, (this.width - scaledViewport.width) / 2, (this.height - scaledViewport.height) / 2],
+      transform: [1, 0, 0, 1, offsetX, offsetY],
       background: 'rgba(0,0,0,0)',
     });
   }
