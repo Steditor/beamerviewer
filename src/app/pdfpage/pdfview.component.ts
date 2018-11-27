@@ -1,4 +1,4 @@
-import { Component, HostListener, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, HostListener, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import fscreen from 'fscreen';
 import { PDFDocumentProxy, PDFPageProxy } from 'pdfjs-dist';
 import { PageNumberService } from '../page-number.service';
@@ -24,26 +24,26 @@ interface Size {
   templateUrl: './pdfview.component.html',
   styleUrls: ['./pdfview.component.scss']
 })
-export class PdfviewComponent implements OnInit, OnChanges {
+export class PdfviewComponent implements OnInit, OnDestroy, OnChanges {
   @Input()
   private slide: number;
+  @Input()
+  singlePage: boolean;
   private isLoadingQueued: boolean = false;
   private isLoading: boolean = false;
 
   @Input()
   private document: PDFDocumentProxy;
 
-  @Input()
-  private width: number = 450;
-
   @ViewChild('wrapper')
   private wrapper;
-  wrapperSize: Size = {width: 0, height: 0};
 
   readonly pdfPage1: PdfPage = null;
   readonly pdfPage2: PdfPage = null;
   private lastPdfPage: PdfPage;
   displaySize: Size = {width: 0, height: 0};
+  resizeObserver: MutationObserver;
+  lastResize: number = 0;
 
   readonly SP = SpecialPage;
   activePage: Page;
@@ -55,11 +55,22 @@ export class PdfviewComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     this.resize();
+    this.lastResize = 0;
     fscreen.onfullscreenchange = () => {
       if (fscreen.fullscreenElement === null) {
         this.exitFullscreen();
       }
     };
+
+    this.resizeObserver = new MutationObserver(() => this.resize());
+    this.resizeObserver.observe(this.wrapper.nativeElement, {
+      attributes: true,
+      subtree: true
+    });
+  }
+
+  ngOnDestroy() {
+    this.resizeObserver.disconnect();
   }
 
   async ngOnChanges(changes: SimpleChanges) {
@@ -100,8 +111,7 @@ export class PdfviewComponent implements OnInit, OnChanges {
 
   exitFullscreen() {
     fscreen.exitFullscreen();
-    this.displaySize.width = this.wrapperSize.width;
-    this.displaySize.height = this.wrapperSize.height;
+    this.resize();
   }
 
   @HostListener('window:keyup', ['$event'])
@@ -118,11 +128,18 @@ export class PdfviewComponent implements OnInit, OnChanges {
     }
   }
 
+  @HostListener('window:resize', ['$event'])
   private resize() {
-    this.wrapperSize.width = this.width;
-    this.wrapperSize.height = this.width * window.screen.height / window.screen.width;
-    this.displaySize.width = this.wrapperSize.width;
-    this.displaySize.height = this.wrapperSize.height;
+    if (Date.now() - this.lastResize < 20) {
+      window.setTimeout(() => this.resize(), 20);
+      return;
+    }
+    if (this.displaySize.width !== this.wrapper.nativeElement.clientWidth
+      || this.displaySize.height !== this.wrapper.nativeElement.clientHeight) {
+      this.displaySize.width = this.wrapper.nativeElement.clientWidth;
+      this.displaySize.height = this.wrapper.nativeElement.clientHeight;
+      this.lastResize = Date.now();
+    }
   }
 
   private async requestSlide() {
@@ -148,7 +165,7 @@ export class PdfviewComponent implements OnInit, OnChanges {
     if (!this.isLoadingQueued) {
       await this.wait(400);
     }
-    if (!this.isLoadingQueued) {
+    if (!this.isLoadingQueued && !this.singlePage) {
       await this.loadSlide(this.slide + 1, oldForeground);
     }
   }

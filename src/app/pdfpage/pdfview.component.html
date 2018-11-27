@@ -1,6 +1,4 @@
-<div class="pdfview" #wrapper
-     [ngStyle]="{'width.px': wrapperSize.width, 'height.px': wrapperSize.height}">
-
+<div class="pdfview" #wrapper>
   <app-pdfpage
     [ngClass]="{'background': activePage !== pdfPage1}"
     [page]="pdfPage1.page"

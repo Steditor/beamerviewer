@@ -1,4 +1,18 @@
+:host {
+  display: flex;
+  flex-direction: column;
+}
+
+mat-card, mat-card-content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  mat-divider {
+    position: relative;
+  }
+}
+
 app-pdfview {
-  display: block;
   padding: 10px 0;
+  flex-grow: 1;
 }

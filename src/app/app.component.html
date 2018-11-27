@@ -6,7 +6,7 @@
   </app-file-selector>
 
   <ng-template [ngIf]="presentationService.presentation">
-    <div>
+    <div class="main">
       <app-main-slide [document]="presentationService.presentation.document"
                       [slide]="pageNumberService.page">
       </app-main-slide>

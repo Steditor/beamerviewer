@@ -9,3 +9,23 @@
 app-file-selector {
   flex-basis: 100%;
 }
+
+.main {
+  flex-grow: 0.8;
+  max-width: 70vw;
+  display: flex;
+  flex-direction: column;
+}
+
+app-main-slide {
+  flex-grow: 1;
+}
+
+app-preview-slides {
+  flex-grow: 0.2;
+  max-width: 25vw;
+}
+
+.main, app-preview-slides {
+  height: 85vh;
+}
