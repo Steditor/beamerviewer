@@ -3,11 +3,11 @@
     <mat-card-title>Next slides</mat-card-title>
   </mat-card-header>
   <mat-card-content>
-    <ng-template ngFor let-item [ngForOf]="[currentSlide + 1, currentSlide + 2, currentSlide + 3]">
+    <ng-template ngFor let-item [ngForOf]="[[currentSlide + 1, document], [currentSlide + 2, document], [currentSlide + 3, document]]">
       <mat-divider></mat-divider>
       <app-pdfview
-        [slide]="item"
-        [document]="presentation.document"
+        [slide]="item[0]"
+        [document]="item[1]"
       ></app-pdfview>
     </ng-template>
   </mat-card-content>

@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { PDFDocumentProxy } from 'pdfjs-dist';
 import { Presentation } from '../presentation';
 
 @Component({
@@ -9,7 +10,7 @@ import { Presentation } from '../presentation';
 export class PreviewSlidesComponent implements OnInit {
 
   @Input()
-  private presentation: Presentation;
+  document: PDFDocumentProxy;
 
   @Input()
   currentSlide: number;

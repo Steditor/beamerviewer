@@ -15,7 +15,7 @@
     </div>
 
     <app-preview-slides *ngIf="displayModeService.mode == displayModeService.modes.SPEAKER"
-                        [presentation]="presentationService.presentation"
+                        [document]="presentationService.presentation.document"
                         [currentSlide]="pageNumberService.page">
     </app-preview-slides>
   </ng-template>
