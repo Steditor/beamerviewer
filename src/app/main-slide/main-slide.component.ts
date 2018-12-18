@@ -31,9 +31,6 @@ export class MainSlideComponent implements OnDestroy {
 
   gotoFullscreen() {
     this.mainViewer.gotoFullscreen();
-    if (document.activeElement instanceof HTMLElement) {
-      document.activeElement.blur();
-    }
     this.displayModeService.mode = DisplayMode.PRESENTATION;
   }
 
@@ -45,6 +42,13 @@ export class MainSlideComponent implements OnDestroy {
   @HostListener('window:keyup', ['$event'])
   onKeyUp(event) {
     switch (event.key) {
+      case 'F5':
+      case 'F11':
+        if (!this.fullscreenQuery.matches) {
+          this.gotoFullscreen();
+          event.preventDefault();
+        }
+        break;
       case 'Escape':
         this.exitFullscreen();
         break;

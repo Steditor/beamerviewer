@@ -12,8 +12,19 @@ export class PageControlDirective {
   constructor(private pageNumberService: PageNumberService) {
   }
 
+  @HostListener('window:keydown', ['$event'])
+  onKeyDown(event: KeyboardEvent) {
+    event.preventDefault();
+  }
+
+  @HostListener('window:keypress', ['$event'])
+  onKeyPress(event: KeyboardEvent) {
+    event.preventDefault();
+  }
+
   @HostListener('window:keyup', ['$event'])
   onKeyUp(event: KeyboardEvent) {
+    event.preventDefault();
     switch (event.key) {
       case 'ArrowDown':
       case 'ArrowRight':
@@ -31,6 +42,9 @@ export class PageControlDirective {
         const timePassed = time.getTime() - this.switchPageAction.getTime();
         if (timePassed < 2000 && this.switchPageTarget !== 0) {
           this.pageNumberService.gotoPage(this.switchPageTarget);
+        } else {
+          this.pageNumberService.nextPage();
+          this.switchPageTarget = 0;
         }
         this.switchPageTarget = 0;
         break;
@@ -48,11 +62,5 @@ export class PageControlDirective {
           this.switchPageAction = time;
         }
     }
-  }
-
-  @HostListener('click')
-  onClick() {
-    this.pageNumberService.nextPage();
-    this.switchPageTarget = 0;
   }
 }

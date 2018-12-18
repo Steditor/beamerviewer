@@ -1,6 +1,6 @@
 <app-toolbar></app-toolbar>
 
-<div class="mainContent" appFileDrop #fileDrop="fileDrop">
+<div class="mainContent" appPageControl appFileDrop #fileDrop="fileDrop">
   <app-file-selector [state]="fileDrop.state"
                      [hidden]="presentationService.presentation && (fileDrop.state == fileDrop.states.DEFAULT)">
   </app-file-selector>

@@ -7,7 +7,7 @@
       #mainViewer
       [slide]="slide"
       [document]="document"
-      appPageControl
+      (click)="pageNumberService.nextPage()"
     ></app-pdfview>
   </mat-card-content>
   <mat-card-content *ngIf="!document">
