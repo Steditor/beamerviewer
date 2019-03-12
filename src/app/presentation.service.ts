@@ -1,12 +1,9 @@
 import { Injectable } from '@angular/core';
 
 import * as localforage from 'localforage';
-import { PDFJSStatic } from 'pdfjs-dist';
-import * as PDFJS_ from 'pdfjs-dist/webpack';
+import * as PDFJS from  'pdfjs-dist/webpack';
 import { PageNumberService } from './page-number.service';
 import { Presentation } from './presentation';
-
-const PDFJS: PDFJSStatic = PDFJS_;
 
 @Injectable({
   providedIn: 'root'
